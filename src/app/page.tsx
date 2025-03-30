@@ -6,6 +6,15 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Web3Auth from "@/customComponents/web3auth";
 import Navbar from "@/customComponents/navbar";
 import ListingHolder from "@/customComponents/listingHolder";
+import { useEffect } from "react";
+
+export interface jsonData{
+  title:string;
+  description:string
+  tags:string
+  metrics:string
+  cid:string
+}
 
 export interface ListingProps {
   title: string;
@@ -24,52 +33,67 @@ export interface KPI {
   value: string;
 }
 
-const temporaryListings: ListingProps[] = [
-  {
-    title: "Test Title",
-    description: "Test Description",
-    category: ["Category1", "Category2"],
-    metrics: [
-      { property: "Metric1", value: "Value1" },
-      { property: "Metric2", value: "Value2" },
-    ],
-    cid: "Qm...",
-  },
-  {
-    title: "Another Title",
-    description: "Another Description",
-    category: ["Category3"],
-    metrics: [
-      { property: "Metric3", value: "Value3" },
-      { property: "Metric4", value: "Value4" },
-    ],
-    cid: "Qm...",
-  },
-  {
-    title: "More Listings",
-    description: "More Description",
-    category: ["Category4", "Category5"],
-    metrics: [
-      { property: "Metric5", value: "Value5" },
-      { property: "Metric6", value: "Value6" },
-    ],
-    cid: "Qm...",
-  }
-];
 
-function getCIDfromChild (cid: string) {
-  console.log("CID from child:", cid);
-  // Handle the CID as needed
-}
+
 
 export default function Home() {
   const { address, isConnected } = useAccount();
+  const [listingHolder, setListingHolder] = useState<ListingProps[]>([]);
+
+
+  
+  useEffect(() => {
+    async function fetchFiles() {
+      try {
+        const response = await fetch("/api/listFile", {
+          method: "GET",
+        });
+        const data = await response.json();
+        const jsonList: jsonData[] = data.payload;
+        console.log(jsonList)
+        if (data.status === 200) {
+          jsonList.map((list, index) => {
+            const categories: string[] = list.tags.split(",")
+            const metricPairs: string[] = list.metrics.split(",");
+            const metric: KPI[] = [];
+            metricPairs.map((met, index) => {
+              const pair = met.split(":")
+              metric.push({
+                property: pair[0],
+                value: pair[1]
+              })
+            })
+
+            setListingHolder(prevHolder => [...prevHolder, {
+              title: list.title,
+              description: list.description,
+              category: categories,
+              metrics: metric,
+              cid: list.cid
+            }])
+          })
+        }
+      }
+      catch (e) {
+        console.log(e)
+        console.log("Error Happened")
+      }
+
+    }
+    fetchFiles();
+  }, []);
+
+
+  function getCIDfromChild (cid: string) {
+    console.log("CID from child:", cid);
+    // Handle the CID as needed
+  }
 
   return (
     <div>
       <Navbar/>
     <div className="flex flex-row items-center justify-evenly">
-    {temporaryListings.sort((a,b)=>a.title.length-b.title.length).map((list, index) => {
+    {listingHolder.sort((a,b)=>a.title.length-b.title.length).map((list, index) => {
         return (
 
           <ListingHolder title={list.title}
