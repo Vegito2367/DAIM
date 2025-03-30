@@ -12,32 +12,21 @@ export interface jsonData{
 export async function GET(request:NextRequest) {
 
   try {
-    const fileListResponse = await pinata.files.private
+    const fileListResponse = await pinata.files.public
     .list()
     .keyvalues({
       type:"json"
     })
     const filesList = fileListResponse.files;
-    const urls:string[] = [];
     const outputJsonItems:jsonData[]=[]
 
     await Promise.all(
         filesList.map(async (file) => {
-          const nowUrl = await pinata.gateways.private.createAccessLink({
-            cid: file.cid,
-            expires: 60*5
-          })
-            urls.push(nowUrl);
+          const jsonFile = await fetch(`https://${secrets.gateway}/ipfs/${file.cid}`);
+          const data:jsonData = await jsonFile.json();
+          outputJsonItems.push(data);
         })
       );
-
-    await Promise.all(
-      urls.map(async (url) => {
-        const jsonFile= await fetch(url);
-        const data:jsonData = await jsonFile.json();
-        outputJsonItems.push(data);
-      })
-    );
     
     console.log(outputJsonItems)
     if(!fileListResponse) {

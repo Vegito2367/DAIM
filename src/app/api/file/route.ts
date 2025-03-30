@@ -17,18 +17,18 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-    const files = await pinata.files.private.list()
-    .keyvalues({
-        type:"code",
-        userAddress:iAddress
-    })
-    if(files.files.length == 0) {
-        return NextResponse.json(
-            { response: "File already exists and the current user is not the owner" },
-            { status: 403 }
-        );
-    }
-    const { cid } = await pinata.upload.private
+    // const files = await pinata.files.public.list()
+    // .keyvalues({
+    //     type:"code",
+    //     userAddress:iAddress
+    // })
+    // if(files.files.length == 0) {
+    //     return NextResponse.json(
+    //         { response: "File already exists and the current user is not the owner" },
+    //         { status: 403 }
+    //     );
+    // }
+    const { cid } = await pinata.upload.public
     .file(file)
     .keyvalues({
       type:"code",
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
       metrics: imetrics,
       cid: cid
     }
-    const upload = await pinata.upload.private
+    const upload = await pinata.upload.public
     .json(jsonBody)
     .name(`${ititle}.json`)
     .keyvalues({

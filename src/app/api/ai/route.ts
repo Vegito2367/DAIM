@@ -16,12 +16,13 @@ export async function POST(request:NextRequest){
         model: "gemini-2.0-flash",
         contents: `Answer exactly as I dictate now. Do not add anything else. You're response will be split into two parts. The first part will
         be relevant text to the prompt. The second part will be all the code you generated, if applicable. The two parts must be separated by $%$% such that I can split the
-        response into two parts based on that sequence of symbols. If you think you're response has no code component, put 'No code' after the $%$% symbol. The prompt is as follows:
+        response into two parts based on that sequence of symbols. If you think you're response has no code component, put 'No code' after the $%$% symbol. As much as possible include code in the response. The prompt is as follows:
         ${prompt}`,
     })
     const aiMessage = response.text as string;
-    const splits = aiMessage.split("$%$%")
-
+    
+    const splits = aiMessage.split("$%$%") as string[];
+    console.log("AI response:", splits)
     return NextResponse.json({message:splits[0].trim(),codeResponse: splits[1].trim(), status:200})
     }
     catch(e){

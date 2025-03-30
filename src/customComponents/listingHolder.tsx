@@ -2,10 +2,17 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { ListingComponentProps } from "@/app/page";
 import { Code, ThumbsUp, ThumbsDown } from "lucide-react";
+import {motion} from "motion/react"
 
 export default function ListingHolder(listingDetails: ListingComponentProps) {
   return (
-    <Card className="overflow-hidden transition-all p-6 duration-300 hover:shadow-xl border max-h-fit border-gray-200 dark:border-gray-800 min-w-[400px] flex flex-col">
+    <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.5 }}
+    className="flex flex-row items-center justify-center max-w-[500px]"
+    >
+<Card className="overflow-hidden transition-all p-6 duration-300 hover:shadow-xl border max-h-fit border-gray-200 dark:border-gray-800 min-w-[400px] flex flex-col">
       {/* Card Header */}
       <CardHeader className="pb-2">
         <CardTitle className="text-xl font-semibold line-clamp-2">{listingDetails.title}</CardTitle>
@@ -63,5 +70,7 @@ export default function ListingHolder(listingDetails: ListingComponentProps) {
         </div>
       </CardFooter>
     </Card>
+    </motion.div>
+    
   );
 }
