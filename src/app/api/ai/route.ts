@@ -30,3 +30,5 @@ export async function POST(request:NextRequest){
         return NextResponse.json({error:"Error in AI response", status: 500})
     }
 }
+
+export const runtime = 'edge';
