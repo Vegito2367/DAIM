@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { atomOneDark, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+
 import { codeHolderProps } from '@/app/page';
 import { Button } from '@/components/ui/button';
 import { Copy, X, Sun, Moon, Download } from 'lucide-react';
@@ -80,7 +80,7 @@ export default function CodeHolder({ code, handleSheetClose,handleGeminiClose}: 
         <div className="flex-1 overflow-auto p-1">
           <SyntaxHighlighter 
             language="javascript" 
-            style={isDarkMode ? atomOneDark : atomOneLight}
+            // style={isDarkMode ? vscDarkPlus : vs}
             customStyle={{
               margin: 0,
               borderRadius: '0.5rem',
