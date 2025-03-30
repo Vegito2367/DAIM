@@ -21,22 +21,9 @@ export async function POST(request:NextRequest) {
    
   try{
         console.log("Entered POST request auto drive")
-        // const cid = api.uploadFileFromInput(file, {
-        //     compression: false,
-        //   })
-        //   .then(res => {
-        //     console.log("Upload successful:", res.);
-        //     return res; // Important: return the value for the next .then() or assignment
-        //   })
-        //   .catch(err => {
-        //     console.error("File upload failed:", err);
-        //     // More detailed error handling here
-        //     if (err.message.includes("Internal Server Error")) {
-        //       console.error("Server is experiencing issues. Please try again later.");
-        //     }
-        //     // Rethrow or handle as needed
-        //     throw err;
-        //   });
+    //     const cid = api.uploadFileFromInput(file, {
+    //         compression: false,
+    //       })
 
     //   console.log("CID:", cid);
     //     const jsonBody = {
@@ -46,8 +33,8 @@ export async function POST(request:NextRequest) {
     //         metrics: imetrics,
     //         cid: cid
     //     }
-        // const jsonCID = await api.uploadObjectAsJSON(jsonBody,`$json-${ititle.split(" ")[0]}.json`)
-        //console.log("Upload response:", jsonBody);
+    //     const jsonCID = await api.uploadObjectAsJSON(jsonBody,`json-${ititle.split(" ")[0]}.json`)
+    //     console.log("Upload response:", jsonBody);
       return NextResponse.json({response:"Succeded Messgae", status: 200})
     }
   catch (e) {
