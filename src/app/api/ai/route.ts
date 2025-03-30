@@ -22,7 +22,6 @@ export async function POST(request:NextRequest){
     const aiMessage = response.text as string;
     
     const splits = aiMessage.split("$%$%") as string[];
-    console.log("AI response:", splits)
     return NextResponse.json({message:splits[0].trim(),codeResponse: splits[1].trim(), status:200})
     }
     catch(e){

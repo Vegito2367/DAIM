@@ -9,8 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@autonomys/auto-drive": "^1.4.9",
-    "@autonomys/auto-utils": "^1.4.8",
     "@google/genai": "^0.7.0",
     "@radix-ui/react-slot": "^1.1.2",
     "@rainbow-me/rainbowkit": "^2.2.4",

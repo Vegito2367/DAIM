@@ -1,4 +1,4 @@
-import { pinata, secrets,api } from "@/app/utils/config";
+import { pinata, secrets } from "@/app/utils/config";
 import { type NextRequest, NextResponse } from "next/server";
 import { title } from "process";
 

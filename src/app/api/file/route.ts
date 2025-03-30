@@ -2,7 +2,6 @@ import { NextResponse, type NextRequest } from "next/server";
 import { pinata } from "@/app/utils/config"
 
 export async function POST(request: NextRequest) {
-    console.log("Entered post request")
   try {
     const data = await request.formData();
     const file: File | null = data.get("file") as unknown as File;
@@ -49,7 +48,6 @@ export async function POST(request: NextRequest) {
       type:"json",
       userAddress:iAddress
     });
-    console.log("Upload response:", upload);
     return NextResponse.json({ status: 200 });
   } catch (e) {
     console.log("Erorr in post request")
@@ -74,7 +72,6 @@ export async function GET(request:NextRequest) {
     const files = await pinata.files.public
     .list()
     .cid(cid)
-    console.log(files);
     if(!files) {
       throw new Error("Content not found");
     }

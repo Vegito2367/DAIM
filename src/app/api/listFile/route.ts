@@ -28,7 +28,6 @@ export async function GET(request:NextRequest) {
         })
       );
     
-    console.log(outputJsonItems)
     if(!fileListResponse) {
       throw new Error("Content not found");
     }

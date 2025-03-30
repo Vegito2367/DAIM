@@ -9,6 +9,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { KPI, ListingProps } from "../page";
 import { jsonData } from "../page";
 import CodeHolder from "@/customComponents/codeHolder";
+import { motion } from "motion/react";
 export default function ProfilePage() {
     const { address, isConnected } = useAccount();
     const { signMessageAsync } = useSignMessage();
@@ -278,12 +279,12 @@ export default function ProfilePage() {
         <>
             <Navbar />
             {showSheet && (
-                <div className="absolute w-4/5 h-2/5 bg-gray-200">
+                <motion.div initial={{opacity:0, y:10}} animate={{opacity:1, y:0}} transition={{duration:0.75}} className="absolute w-4/5 h-2/5 bg-gray-200">
                     <CodeHolder code={code as string} handleSheetClose={closeSheet} handleGeminiClose={()=>{}} />
-                </div>
+                </motion.div>
             )}
 
-            <div className="flex flex-col min-h-screen bg-gray-50">
+            <motion.div initial={{opacity:0, y:10}} animate={{opacity:1, y:0}} transition={{duration:0.75}} className="flex flex-col min-h-screen bg-gray-50">
                 {/* Header with improved spacing and shadow */}
                 <div className="flex flex-row items-center justify-between bg-white p-6 shadow-sm sticky top-0 z-10">
                     <h1 className="text-2xl font-medium text-gray-800">Profile</h1>
@@ -541,7 +542,7 @@ export default function ProfilePage() {
                     </div>
                     )}
                 </div>
-            </div>
+            </motion.div>
 
         </>
     );

@@ -11,7 +11,6 @@ export interface jsonData {
 export async function POST(request: NextRequest) {
     const data = await request.json()
     const myAddress = data.address as string
-    console.log("Fetch CID", myAddress)
     try {
         const fileListResponse = await pinata.files.public
             .list()
@@ -29,7 +28,6 @@ export async function POST(request: NextRequest) {
                 outputJsonItems.push(data);
             })
         );
-        console.log(outputJsonItems)
         if (!fileListResponse) {
             throw new Error("Content not found");
         }

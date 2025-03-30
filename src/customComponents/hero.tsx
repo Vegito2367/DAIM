@@ -1,9 +1,11 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import {motion} from "motion/react"
 export default function Hero() {
     const router = useRouter();
   return (
-    <div className="relative overflow-hidden bg-white justify-center flex flex-row">
+    <motion.div initial={{opacity:0, y:10}} animate={{opacity:1, y:0}} transition={{duration:0.75}} className="relative overflow-hidden bg-white justify-center flex flex-row">
       {/* Abstract Background Elements */}
       <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-600 opacity-10 rounded-full blur-3xl"></div>
       <div className="absolute top-1/2 -left-24 w-72 h-72 bg-blue-600 opacity-5 rounded-full blur-3xl"></div>
@@ -44,6 +46,6 @@ export default function Hero() {
           <path fill="#f9fafb" d="M0,96L80,85.3C160,75,320,53,480,48C640,43,800,53,960,58.7C1120,64,1280,64,1360,64L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
         </svg>
       </div>
-    </div>
+    </motion.div>
   );
 }

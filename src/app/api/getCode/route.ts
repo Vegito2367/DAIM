@@ -9,7 +9,6 @@ export async function GET(request:NextRequest) {
   try{
       const response = await fetch(`https://${secrets.gateway}/ipfs/${cid}`);
       const payload= await response.text();
-      console.log(payload)
       return NextResponse.json({response:"Succeded Messgae", payload: payload, status: 200})
     }
   catch (e) {
