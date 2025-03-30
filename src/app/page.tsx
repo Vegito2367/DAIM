@@ -9,6 +9,9 @@ import ListingHolder from "@/customComponents/listingHolder";
 import { useEffect } from "react";
 import CodeHolder from "@/customComponents/codeHolder";
 import { Button } from "@/components/ui/button";
+import { GoogleGenAI } from "@google/genai";
+import AIChatbox from "@/customComponents/chatbox";
+
 export interface jsonData{
   title:string;
   description:string
@@ -48,6 +51,8 @@ export default function Home() {
   const [showSheet,setshowSheet] = useState(false);
   const [code,setCode] = useState<string>();
   const [showGemini, setShowGemini] = useState(false);
+  const gemini = new GoogleGenAI({apiKey : `${process.env.GEMINI_API_KEY}`})
+
 
 
   
@@ -112,6 +117,9 @@ export default function Home() {
     setshowSheet(false)
   }
 
+  async function handleGemini (message: string) {
+  }
+
   return (
     <div>
       <Navbar/>
@@ -136,8 +144,8 @@ export default function Home() {
     })}
 </div>
 {showGemini && (
-  <div className="w-1/3">
-  Gemini Component
+  <div className="w-6/12">
+  <AIChatbox />
 </div>
 )}
 
