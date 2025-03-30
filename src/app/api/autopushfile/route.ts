@@ -5,7 +5,7 @@ import { title } from "process";
 
 export async function POST(request:NextRequest) {
     const data = await request.formData();
-    const file: File | null = data.get("file") as unknown as File;
+    const file: File = data.get("file") as File;
     const ititle: string = data.get("title") as string;
     const idescription: string = data.get("description") as string;
     const itags: string = data.get("tags") as string;
@@ -20,20 +20,34 @@ export async function POST(request:NextRequest) {
 
    
   try{
+        console.log("Entered POST request auto drive")
+        // const cid = api.uploadFileFromInput(file, {
+        //     compression: false,
+        //   })
+        //   .then(res => {
+        //     console.log("Upload successful:", res.);
+        //     return res; // Important: return the value for the next .then() or assignment
+        //   })
+        //   .catch(err => {
+        //     console.error("File upload failed:", err);
+        //     // More detailed error handling here
+        //     if (err.message.includes("Internal Server Error")) {
+        //       console.error("Server is experiencing issues. Please try again later.");
+        //     }
+        //     // Rethrow or handle as needed
+        //     throw err;
+        //   });
 
-      const cid = await api.uploadFileFromInput(file,{
-        compression: false,
-      })
-      console.log("CID:", cid);
-        const jsonBody = {
-            title: ititle,
-            description: idescription,
-            tags: itags,
-            metrics: imetrics,
-            cid: cid
-        }
-        const jsonCID = await api.uploadObjectAsJSON(jsonBody,`$json-${ititle.split(" ")[0]}.json`)
-        console.log("Upload response:", jsonCID);
+    //   console.log("CID:", cid);
+    //     const jsonBody = {
+    //         title: ititle,
+    //         description: idescription,
+    //         tags: itags,
+    //         metrics: imetrics,
+    //         cid: cid
+    //     }
+        // const jsonCID = await api.uploadObjectAsJSON(jsonBody,`$json-${ititle.split(" ")[0]}.json`)
+        //console.log("Upload response:", jsonBody);
       return NextResponse.json({response:"Succeded Messgae", status: 200})
     }
   catch (e) {
