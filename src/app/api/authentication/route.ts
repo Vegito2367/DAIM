@@ -17,3 +17,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: false, message: "Error", status: 500 });
   }
 }
+
+export async function GET (req:NextRequest){
+    
+}
