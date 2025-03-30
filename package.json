@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@autonomys/auto-drive": "^1.4.9",
+    "@autonomys/auto-utils": "^1.4.8",
     "@google/genai": "^0.7.0",
     "@radix-ui/react-slot": "^1.1.2",
     "@rainbow-me/rainbowkit": "^2.2.4",
@@ -22,6 +24,7 @@
     "motion": "^12.6.2",
     "next": "15.2.4",
     "pinata": "^2.1.3",
+    "pino-pretty": "^13.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-syntax-highlighter": "^15.6.1",

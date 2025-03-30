@@ -1,6 +1,14 @@
 "server only"
 
 import { PinataSDK } from "pinata"
+import { NetworkId } from '@autonomys/auto-utils'
+import { createAutoDriveApi } from '@autonomys/auto-drive'
+
+export const api = createAutoDriveApi({
+  apiKey: `${process.env.AUTONOMYS_API_KEY}`,
+  network: "taurus"
+})
+ 
 
 export const pinata = new PinataSDK({
   pinataJwt: `${process.env.PINATA_JWT}`,

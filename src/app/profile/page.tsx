@@ -21,8 +21,11 @@ export default function ProfilePage() {
     const [uploading, setUploading] = useState(false);
     const [cid, setCID] = useState("");
     const [formDetails, setFormDetails] = useState({ title: "", description: "", tags: "", metrics: "" });
-
+    const [dataDetails, setDataDetails] = useState({ title: "", description: "", tags: "", metrics: "" });
+    const [dataFile, setDataFile] = useState<File>();
     const [showForm, setShowForm] = useState(true);
+    const [showdata, setShowData] = useState(false);
+    const [showCurrent, setShowCurrent] = useState(false);
 
     const [showSheet, setshowSheet] = useState(false);
     const [code, setCode] = useState<string>();
@@ -166,9 +169,93 @@ export default function ProfilePage() {
         }
     };
 
+
+
+    async function uploadDataset(){
+        if (!dataFile) {
+            alert("No file selected");
+            return;
+        }
+
+        if (dataDetails.title === "" || dataDetails.description === "" || dataDetails.tags === "" || dataDetails.metrics === "") {
+            alert("Please fill in all the details");
+            return;
+        }
+        setUploading(true);
+        console.log("Proof started")
+        try {
+            const signature = await signMessageAsync({ message });
+            // Send signature and address to the backend for verification
+            const response = await fetch("/api/authentication", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ address, message, signature }),
+            });
+
+            const data = await response.json();
+            if (!data.success) {
+                alert("Authentication failed.");
+                console.log(data.status)
+                setUploading(false);
+                return;
+            }
+        } catch (error) {
+            console.error("Signing error:", error);
+        }
+        console.log("Proof ended")
+        console.log("Uploading file...");
+        console.log("File name:", dataFile.name);
+        
+        const data = new FormData();
+        data.set("file", dataFile);
+        data.set("title", formDetails.title);
+        data.set("description", formDetails.description);
+        data.set("tags", formDetails.tags);
+        data.set("metrics", formDetails.metrics);
+        if (address) {
+            data.set("address", address);
+        }
+        else {
+            alert("No address found");
+            return;
+        }
+
+        try{
+            const uploadRequest = await fetch("/api/autopushfile", {
+                method: "POST",
+                body: data,
+            });
+            const responseData = await uploadRequest.json();
+            console.log("Upload response:", responseData);
+            if (responseData.status === 403) {
+                alert("File already exists");
+                setUploading(false);
+                return;
+            }
+            setUploading(false);
+            setFile(undefined);
+            const resetObject = {
+                title: "",
+                description: "",
+                tags: "",
+                metrics: ""
+            }
+            setFormDetails(resetObject);
+            alert("File uploaded successfully");
+        }
+        catch (e) {
+            console.log(e);
+            setUploading(false);
+            alert("Trouble uploading file");
+        }
+    }
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFile(e.target?.files?.item(0)!);
     };
+
+    function handleDataFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setDataFile(e.target?.files?.item(0)!);
+    }
 
     if (!isConnected || !address) {
         return (
@@ -217,16 +304,22 @@ export default function ProfilePage() {
                     {/* Tab buttons with improved design */}
                     <div className="flex flex-row justify-center gap-4 mb-8">
                         <Button
-                            onClick={() => { setShowForm(true) }}
+                            onClick={() => { setShowForm(true), setShowCurrent(false), setShowData(false) }}
                             className={`px-6 py-2 rounded-md transition-all duration-200 ${showForm ? 'bg-blue-600 text-white' : 'bg-white shadow-md shadow-blue-400 hover:shadow-blue-600 hover:bg-white text-black hover:shadow-lg'}`}
                         >
                             New Listing
                         </Button>
                         <Button
-                            onClick={() => { setShowForm(false) }}
-                            className={`px-6 py-2 rounded-md transition-all duration-200 ${!showForm ? 'bg-blue-600 text-white' : 'bg-white shadow-md shadow-blue-400 hover:shadow-blue-600 hover:bg-white text-black hover:shadow-lg'}`}
+                            onClick={() => { setShowForm(false), setShowCurrent(true), setShowData(false) }}
+                            className={`px-6 py-2 rounded-md transition-all duration-200 ${showCurrent ? 'bg-blue-600 text-white' : 'bg-white shadow-md shadow-blue-400 hover:shadow-blue-600 hover:bg-white text-black hover:shadow-lg'}`}
                         >
                             Current Listings
+                        </Button>
+                        <Button
+                            onClick={() => { setShowForm(false), setShowCurrent(false), setShowData(true) }}
+                            className={`px-6 py-2 rounded-md transition-all duration-200 ${showdata ? 'bg-blue-600 text-white' : 'bg-white shadow-md shadow-blue-400 hover:shadow-blue-600 hover:bg-white text-black hover:shadow-lg'}`}
+                        >
+                            Upload Datasets
                         </Button>
                     </div>
 
@@ -322,7 +415,7 @@ export default function ProfilePage() {
                     )}
 
                     {/* Current Listings with card design */}
-                    {!showForm && (
+                    {showCurrent && (
                         <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 overflow-x-scroll">
                             <h2 className="text-xl font-medium mb-6 text-gray-800">Current Listings</h2>
                             <div className="flex flex-row gap-6">
@@ -357,6 +450,95 @@ export default function ProfilePage() {
                                 )}
                             </div>
                         </div>
+                    )}
+                    {showdata && (
+                        <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+                        <h2 className="text-xl font-medium mb-6 text-gray-800">Upload Datasets</h2>
+                        <form className="space-y-5">
+                            <div>
+                                <input
+                                    type="text"
+                                    placeholder="Title"
+                                    value={dataDetails.title}
+                                    onChange={(e) => setDataDetails({ ...dataDetails, title: e.target.value })}
+                                    className="border border-gray-200 p-3 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"
+                                />
+                            </div>
+                            <div>
+                                <textarea
+                                    placeholder="Description"
+                                    value={dataDetails.description}
+                                    onChange={(e) => setDataDetails({ ...dataDetails, description: e.target.value })}
+                                    className="border border-gray-200 p-3 rounded-md w-full h-24 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all resize-none"
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    type="text"
+                                    placeholder="Tags (comma separated)"
+                                    value={dataDetails.tags}
+                                    onChange={(e) => setDataDetails({ ...dataDetails, tags: e.target.value })}
+                                    className="border border-gray-200 p-3 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    type="text"
+                                    placeholder="Metrics (property:value comma separated)"
+                                    value={dataDetails.metrics}
+                                    onChange={(e) => setDataDetails({ ...dataDetails, metrics: e.target.value })}
+                                    className="border border-gray-200 p-3 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"
+                                />
+                            </div>
+
+                            {/* File upload area with blue accent */}
+                            <div className="my-6">
+                                <div className="flex justify-center px-6 py-8 border-2 border-gray-200 border-dashed rounded-md hover:border-blue-600 transition-colors group cursor-pointer bg-gray-50">
+                                    <div className="space-y-2 text-center">
+                                        <div className="flex flex-col text-sm text-gray-600">
+                                            <label htmlFor="fileDataUpload" className="relative font-medium text-blue-600 hover:text-blue-700 focus-within:outline-none cursor-pointer">
+                                                {!dataFile ? (
+                                                    <div className="flex flex-col items-center">
+                                                        {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-blue-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                                        </svg> */}
+                                                        <span>Upload a file</span>
+                                                        <p className="text-gray-500">or drag and drop</p>
+                                                    </div>
+                                                ) : (
+                                                    <div className="flex items-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                                        </svg>
+                                                        <span>{dataFile.name} uploaded</span>
+                                                    </div>
+                                                )}
+                                                <input id="fileDataUpload" name="fileDataupload" onChange={handleDataFileChange} type="file" className="sr-only" />
+                                            </label>
+                                        </div>
+                                        <p className="text-xs text-gray-500">Upload your source code as a zip file</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <Button
+                                onClick={uploadDataset}
+                                type="button"
+                                disabled={uploading}
+                                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md w-full transition-colors duration-200 disabled:bg-blue-400 disabled:cursor-not-allowed"
+                            >
+                                {uploading ? (
+                                    <div className="flex items-center justify-center">
+                                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        Uploading...
+                                    </div>
+                                ) : "Upload Dataset"}
+                            </Button>
+                        </form>
+                    </div>
                     )}
                 </div>
             </div>

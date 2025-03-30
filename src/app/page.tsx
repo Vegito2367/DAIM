@@ -51,6 +51,7 @@ export default function Home() {
   const [showSheet, setshowSheet] = useState(false);
   const [code, setCode] = useState<string>();
   const [showGemini, setShowGemini] = useState(false);
+  const [showListings, setShowListings] = useState(true);
 
 
 
@@ -115,7 +116,7 @@ export default function Home() {
 
   function handleSheetClose() {
     setshowSheet(false)
-    
+
   }
 
 
@@ -128,43 +129,57 @@ export default function Home() {
     <div>
       <Navbar />
       <Hero />
-      
-      <div className="flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold text-gray-800 dark:text-white">Listings</h1>
-        <p className="text-gray-600 dark:text-gray-400">Explore code listings</p>
+      <div className="flex flex-row justify-center gap-4 py-4">
+        <Button onClick={()=>{setShowListings(true)}}>Show Listings</Button>
+        <Button onClick={()=>{setShowListings(false)}}>Show Datasets</Button>
       </div>
-      <div className="flex flex-row max-h-full">
-        <div className="flex flex-row h-screen w-full overflow-y-scroll">
-          <div className="w-full py-8 px-4 flex flex-row flex-wrap gap-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-xl shadow-sm">
-            {listingHolder
-              .sort((a, b) => a.title.length - b.title.length)
-              .map((list, index) => {
-                return (
-                  <ListingHolder
-                    title={list.title}
-                    description={list.description}
-                    category={list.category}
-                    metrics={list.metrics}
-                    cid={list.cid}
-                    handleCode={getCIDfromChild}
-                    key={index}
-                  />
-                );
-              })}
+      {showListings && (
+        <>
+          <div className="flex flex-col items-center justify-center">
+            <h1 className="text-4xl font-bold text-gray-800 dark:text-white">Listings</h1>
+            <p className="text-gray-600 dark:text-gray-400">Explore code listings</p>
           </div>
-          {showGemini && (
-            <div className="w-9/12">
-              <AIChatbox onToggleExpand={handleGeminiBox} sheetOpen={showSheet} currentCode={code as string} />
-            </div>
-          )}
+          <div className="flex flex-row max-h-full">
+            <div className="flex flex-row h-screen w-full overflow-y-scroll">
+              <div className="w-full py-8 px-4 flex flex-row flex-wrap gap-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-xl shadow-sm">
+                {listingHolder
+                  .sort((a, b) => a.title.length - b.title.length)
+                  .map((list, index) => {
+                    return (
+                      <ListingHolder
+                        title={list.title}
+                        description={list.description}
+                        category={list.category}
+                        metrics={list.metrics}
+                        cid={list.cid}
+                        handleCode={getCIDfromChild}
+                        key={index}
+                      />
+                    );
+                  })}
+              </div>
+              {showGemini && (
+                <div className="w-9/12">
+                  <AIChatbox onToggleExpand={handleGeminiBox} sheetOpen={showSheet} currentCode={code as string} />
+                </div>
+              )}
 
-        </div>
-        {showSheet && (
-          <div className="w-1/3">
-            <CodeHolder code={code!} handleSheetClose={handleSheetClose} handleGeminiClose={handleGeminiBox} />
+            </div>
+            {showSheet && (
+              <div className="w-1/3">
+                <CodeHolder code={code!} handleSheetClose={handleSheetClose} handleGeminiClose={handleGeminiBox} />
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </>
+      )}
+
+      {!showListings && (
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="text-4xl font-bold text-gray-800 dark:text-white">Datasets</h1>
+          <p className="text-gray-600 dark:text-gray-400">Explore datasets</p>
+        </div>
+      )}
 
     </div>
   )
