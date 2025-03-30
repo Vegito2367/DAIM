@@ -9,7 +9,7 @@ import ListingHolder from "@/customComponents/listingHolder";
 import { useEffect } from "react";
 import CodeHolder from "@/customComponents/codeHolder";
 import { Button } from "@/components/ui/button";
-import { GoogleGenAI } from "@google/genai";
+
 import AIChatbox from "@/customComponents/chatbox";
 
 export interface jsonData{
@@ -51,7 +51,7 @@ export default function Home() {
   const [showSheet,setshowSheet] = useState(false);
   const [code,setCode] = useState<string>();
   const [showGemini, setShowGemini] = useState(false);
-  const gemini = new GoogleGenAI({apiKey : `${process.env.GEMINI_API_KEY}`})
+  
 
 
 
@@ -117,7 +117,11 @@ export default function Home() {
     setshowSheet(false)
   }
 
-  async function handleGemini (message: string) {
+  async function handleGeminiQueries (message: string) {
+  }
+
+  function handleGeminiBox(){
+    setShowGemini(false)
   }
 
   return (
@@ -126,7 +130,7 @@ export default function Home() {
     <Button onClick={()=> setShowGemini(!showGemini)}>Toggle Gemini</Button>
     <div className="flex flex-row max-h-full">
     <div className="flex flex-row h-screen w-full overflow-y-scroll">
-   <div className="w-full py-8 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-xl shadow-sm">
+   <div className="w-full py-8 px-4 flex flex-row flex-wrap gap-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-xl shadow-sm">
   {listingHolder
     .sort((a, b) => a.title.length - b.title.length)
     .map((list, index) => {
@@ -144,8 +148,8 @@ export default function Home() {
     })}
 </div>
 {showGemini && (
-  <div className="w-6/12">
-  <AIChatbox />
+  <div className="w-9/12">
+  <AIChatbox onToggleExpand={handleGeminiBox} sheetOpen={showSheet} currentCode={code as string}/>
 </div>
 )}
 

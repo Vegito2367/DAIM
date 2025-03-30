@@ -5,7 +5,7 @@ import { Code, ThumbsUp, ThumbsDown } from "lucide-react";
 
 export default function ListingHolder(listingDetails: ListingComponentProps) {
   return (
-    <Card className="overflow-hidden transition-all p-6 duration-300 hover:shadow-xl border border-gray-200 dark:border-gray-800 min-w-fit max-h-fit flex flex-col">
+    <Card className="overflow-hidden transition-all p-6 duration-300 hover:shadow-xl border max-h-fit border-gray-200 dark:border-gray-800 min-w-[400px] flex flex-col">
       {/* Card Header */}
       <CardHeader className="pb-2">
         <CardTitle className="text-xl font-semibold line-clamp-2">{listingDetails.title}</CardTitle>
@@ -26,7 +26,7 @@ export default function ListingHolder(listingDetails: ListingComponentProps) {
           {listingDetails.description}
         </CardDescription>
         
-        <div className="grid grid-cols-2 gap-2">
+        <div className="flex flex-row gap-2">
           {listingDetails.metrics.map((met, index) => (
             <div key={index} className="bg-gray-50 dark:bg-gray-800 rounded-lg p-2">
               <p className="text-xs text-gray-500 dark:text-gray-400">{met.property}</p>
