@@ -5,6 +5,11 @@
 
 This platform fosters a **community-driven, transparent, and secure ecosystem** for AI innovation, ensuring contributors get proper attribution for their work.
 
+
+## Achievements
+- 🥈 Winner – **Autonomys AI Challenge** @ Midwest-Blockathon 2025
+
+
 ## Features
 - **Decentralized AI Model Sharing** – Upload and store AI models with secure, verifiable ownership.
 - **Seamless AI Model Discovery** – Browse AI models with key performance metrics to find the best fit for your needs.
@@ -47,7 +52,6 @@ Put in your API Keys in a .env file
 
 ## 📢 Acknowledgments
 A huge thanks to **KU Blockchain** and **Autonomys** for their support and for hosting the Midwest Blockathon!
-
 
 ---
 
