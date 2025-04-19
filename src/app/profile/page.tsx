@@ -279,7 +279,7 @@ export default function ProfilePage() {
         <>
             <Navbar />
             {showSheet && (
-                <motion.div initial={{opacity:0, y:10}} animate={{opacity:1, y:0}} transition={{duration:0.75}} className="absolute w-4/5 h-2/5 bg-gray-200">
+                <motion.div initial={{opacity:0, y:10}} animate={{opacity:1, y:0}} transition={{duration:0.75}} className="absolute top-[30%] left-[10%] w-4/5 h-3/5 bg-gray-200">
                     <CodeHolder code={code as string} handleSheetClose={closeSheet} />
                 </motion.div>
             )}

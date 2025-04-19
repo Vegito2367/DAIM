@@ -135,19 +135,25 @@ export default function Home() {
         <>
           <Navbar />
           {/* Header */}
-          <div className="flex flex-col items-center justify-center py-8">
-            <h1 className="text-4xl font-bold text-gray-800 dark:text-white">Listings</h1>
-            <p className="text-gray-600 dark:text-gray-400">Explore code listings</p>
+          <div className="flex flex-col items-center justify-center text-center mb-8">
+            <h1 className="text-5xl font-extrabold tracking-tight text-gray-800 dark:text-white transition-colors duration-300">
+              Discover Listings
+            </h1>
+            <p className="mt-2 text-lg text-gray-500 dark:text-gray-400 max-w-md">
+              Explore community-submitted code snippets and smart solutions
+            </p>
           </div>
+
 
           {/* Main content: listings + optional panels */}
           <div className="flex h-[calc(100vh-4rem)]">
             {/* Listings & AI Chatbox */}
-            <div className="flex-1 flex flex-col overflow-y-auto p-4">
+            <div className="flex-1 flex flex-col px-2">
               {/* Grid of listings */}
               <div
-                className={`grid grid-cols-${3} gap-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-xl shadow-sm p-4`}
+                className=" auto-rows-fr grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-xl shadow-sm px-4"
               >
+
                 {listingHolder
                   .sort((a, b) => a.title.length - b.title.length)
                   .map((list, index) => (
