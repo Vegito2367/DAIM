@@ -7,7 +7,7 @@ This platform fosters a **community-driven, transparent, and secure ecosystem** 
 
 
 ## Achievements
-- 🥈 Winner – **Autonomys AI Challenge** @ Midwest-Blockathon 2025
+- 🥇 Winner – **Autonomys AI Challenge** @ Midwest-Blockathon 2025
 
 
 ## Features
@@ -38,11 +38,21 @@ Install dependencies:
 ```bash
 npm install
 ```
+Make the environment variables file
+```bash
+touch .env
+```
+Put in your API KEYS
+```bash
+PINATA_JWT=
+NEXT_PUBLIC_GATEWAY_URL=
+GEMINI_API_KEY=
+```
 Start the development server:
 ```bash
 npm run dev
 ```
-Put in your API Keys in a .env file
+
 
 ## 🛠 Tech Stack
 - **Frontend:** Next.js, TypeScript, Framer Motion, RainbowKit
