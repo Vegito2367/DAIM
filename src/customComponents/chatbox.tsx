@@ -19,7 +19,7 @@ interface AIChatboxProps {
     className?: string;
     expanded?: boolean;
     onToggleExpand?: () => void;
-    sheetOpen: boolean;
+    sheetOpen?: boolean;
     currentCode: string;
 }
 
@@ -32,7 +32,7 @@ const AIChatbox: React.FC<AIChatboxProps> = ({
     className = "",
     expanded = false,
     onToggleExpand,
-    sheetOpen,
+    sheetOpen = true,
     currentCode,
 }) => {
     const [messages, setMessages] = useState<Message[]>(initialMessages.length > 0 ? initialMessages : [
@@ -135,9 +135,9 @@ const AIChatbox: React.FC<AIChatboxProps> = ({
     };
 
     // Auto-scroll to the bottom when messages change
-    useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [messages]);
+    // useEffect(() => {
+    //     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // }, [messages]);
 
     // Auto-focus the input field when the component mounts
     useEffect(() => {
@@ -147,8 +147,8 @@ const AIChatbox: React.FC<AIChatboxProps> = ({
     }, [expanded]);
 
     return (
-        <div className={`${expanded ? 'w-full h-[70vh]' : 'w-full max-w-2xl h-full'} 
-      bg-white dark:bg-gray-900 rounded-md shadow-md overflow-hidden border border-gray-200 dark:border-gray-800 transition-all duration-300 ${className}`}>
+        <div className={`${expanded ? 'w-full h-[70vh]' : 'w-full max-w-2xl'} 
+      bg-white max-h-screen dark:bg-gray-900 rounded-md shadow-md overflow-y-scroll border border-gray-200 dark:border-gray-800 transition-all duration-300 ${className}`}>
             {/* Header */}
             <div className="px-6 py-4 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center">
                 <div className="flex items-center space-x-3">
@@ -169,7 +169,7 @@ const AIChatbox: React.FC<AIChatboxProps> = ({
                 </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-gray-50 dark:bg-gray-950 h-[calc(100%-140px)]">
+            <div className="flex-1 overflow-y-scroll p-6 space-y-6 bg-gray-50 dark:bg-gray-950">
                 {messages.map((message, index) => (
                     <div
                         key={index}

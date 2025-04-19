@@ -25,7 +25,7 @@ export default function Hero() {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button onClick={()=>{router.push("/profile")}} className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg rounded-md transition-all duration-200 shadow-lg hover:shadow-xl hover:translate-y-px">
+              <Button onClick={()=>{router.push("/listingPage")}} className="cursor-pointer bg-blue-600 hover:bg-blue-800 text-white px-8 py-3 text-lg rounded-md transition-all duration-200 shadow-lg hover:shadow-xl">
                 Get Started
               </Button>
               <Button className="bg-white shadow-md shadow-blue-400 hover:shadow-blue-600 hover:bg-white hover:shadow-lg text-gray-800 px-8 py-3 text-lg rounded-md transition-all duration-200">

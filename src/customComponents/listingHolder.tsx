@@ -46,7 +46,7 @@ export default function ListingHolder(listingDetails: ListingComponentProps) {
       <CardFooter className="pt-2 border-t border-gray-100 dark:border-gray-800">
         <div className="flex w-full gap-2">
           <Button 
-            onClick={() => listingDetails.handleCode(listingDetails.cid)} 
+            onClick={() => listingDetails.handleCode(listingDetails.cid, listingDetails.title)} 
             className="bg-blue-600 hover:bg-blue-700 flex-1 flex items-center justify-center gap-1"
           >
             <Code size={16} /> Code

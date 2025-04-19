@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Navbar() {
   return (
-    <nav className="bg-white text-gray-800 p-4 shadow-sm sticky top-0 z-20 border-b mb-4 border-blue-600">
+    <nav className="bg-white text-gray-800 p-4 shadow-sm top-0 z-20 border-b mb-4 border-blue-600">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <a href="/" className="text-xl font-medium flex items-center">

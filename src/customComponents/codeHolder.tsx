@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Copy, X, Sun, Moon, Download } from 'lucide-react';
 import {motion} from "motion/react"
 
-export default function CodeHolder({ code, handleSheetClose,handleGeminiClose}: codeHolderProps) {
+export default function CodeHolder({ code, handleSheetClose}: codeHolderProps) {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isCopied, setIsCopied] = useState(false);
 
@@ -31,11 +31,10 @@ export default function CodeHolder({ code, handleSheetClose,handleGeminiClose}: 
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     transition={{ duration: 0.5 }}
-    className='flex flex-row items-center bg-accent w-full h-screen overflow-y-scroll bg-opacity-40 z-50 '>
+    className='flex flex-row bg-accent w-full max-h-screen overflow-y-scroll bg-opacity-40 z-50 '>
     
-      <div className="h-4/5 w-full dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden flex flex-col">
+      <div className="h-full w-full dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden flex flex-col">
         {/* Header */}
-        <Button onClick={handleGeminiClose} className="z-50 w-1/2 ml-16 mb-6 bg-white shadow-md shadow-blue-400 hover:shadow-blue-600 hover:bg-white text-black hover:shadow-lg">Toggle Gemini</Button>
         <div className="p-4 border-b flex justify-between items-center bg-white">
           <h3 className="font-medium text-gray-700 dark:text-gray-200">Code Snippet</h3>
           <div className="flex space-x-2">

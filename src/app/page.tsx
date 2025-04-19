@@ -22,7 +22,6 @@ export interface jsonData {
 export interface codeHolderProps {
   code: string;
   handleSheetClose: () => void;
-  handleGeminiClose: () => void;
 }
 
 export interface ListingProps {
@@ -34,7 +33,7 @@ export interface ListingProps {
 }
 
 export interface ListingComponentProps extends ListingProps {
-  handleCode: (cid: string) => void;
+  handleCode: (cid: string,tight:string) => void;
 }
 
 export interface KPI {
@@ -129,7 +128,7 @@ export default function Home() {
     <div>
       <Navbar />
       <Hero />
-      <div className="flex flex-row justify-center gap-4 py-4">
+      {/* <div className="flex flex-row justify-center gap-4 py-4">
         <Button onClick={()=>{setShowListings(true)}}>Show Listings</Button>
         <Button onClick={()=>{setShowListings(false)}}>Show Datasets</Button>
       </div>
@@ -180,7 +179,7 @@ export default function Home() {
           <p className="text-gray-600 dark:text-gray-400">Explore datasets</p>
         </div>
         
-      )}
+      )} */}
 
     </div>
   )
