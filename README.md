@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DAIM: Decentralized AI Marketplace
+
+## 🚀 Overview
+**DAIM (Decentralized AI Marketplace)** is a blockchain-powered, open-source platform where AI developers and researchers can securely share their models and datasets without the risk of losing ownership or relying on centralized hosting services. 
+
+This platform fosters a **community-driven, transparent, and secure ecosystem** for AI innovation, ensuring contributors get proper attribution for their work.
+
+
+## Achievements
+- 🥈 Winner – **Autonomys AI Challenge** @ Midwest-Blockathon 2025
+
+
+## Features
+- **Decentralized AI Model Sharing** – Upload and store AI models with secure, verifiable ownership.
+- **Seamless AI Model Discovery** – Browse AI models with key performance metrics to find the best fit for your needs.
+- **Easy Integration** – Download AI models in a structured format for smooth deployment and customization.
+- **Contributor Attribution** – Ensure AI developers receive proper credit for their contributions.
+- **Enhanced AI Context** – Leverage generative AI to provide insights into listed models for better usability.
+
+## Why DAIM?
+- **No Central Authority** – Ensures AI models remain accessible and verifiable.
+- **Open-Source & Community-Driven** – Anyone can contribute and improve the ecosystem.
+- **Secure Storage** – Uses decentralized technologies for tamper-proof data hosting.
 
 ## Getting Started
+### Prerequisites
+- Node.js & npm installed
+- IPFS setup (e.g., via [Pinata](https://www.pinata.cloud/) or a local IPFS node)
+- Wallet connection (e.g., Metamask + RainbowKit)
 
-First, run the development server:
-
+### Installation
+Clone the repository:
+```bash
+git clone https://github.com/Vegito2367/DAIM.git
+cd DAIM
+```
+Install dependencies:
+```bash
+npm install
+```
+Start the development server:
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+Put in your API Keys in a .env file
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠 Tech Stack
+- **Frontend:** Next.js, TypeScript, Framer Motion, RainbowKit
+- **Storage:** IPFS (via Pinata), Autonomys Auto Drive
+- **Blockchain Integration:** Autonomys API
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📢 Acknowledgments
+A huge thanks to **KU Blockchain** and **Autonomys** for their support and for hosting the Midwest Blockathon!
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Stay tuned for updates as DAIM continues to evolve!**
